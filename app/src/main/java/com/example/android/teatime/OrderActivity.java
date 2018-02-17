@@ -30,7 +30,6 @@ import java.text.NumberFormat;
 
 public class OrderActivity extends AppCompatActivity {
 
-
     private int mQuantity = 0;
     private int mTotalPrice = 0;
 

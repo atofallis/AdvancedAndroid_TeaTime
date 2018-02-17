@@ -38,13 +38,11 @@ public class TeaMenuAdapter extends ArrayAdapter<Tea> {
 
     private Context mContext;
     private int layoutResourceId;
-    private ArrayList data = new ArrayList();
 
     public TeaMenuAdapter(Context context, int layoutResourceId, ArrayList data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.mContext = context;
-        this.data = data;
     }
 
     static class ViewHolder {
