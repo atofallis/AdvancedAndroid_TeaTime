@@ -17,7 +17,8 @@
 package com.example.android.teatime;
 
 
-import android.support.test.espresso.IdlingResource;
+import android.content.Intent;
+import android.support.test.espresso.IdlingRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -26,6 +27,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.CoreMatchers.anything;
 
 /**
  * Usually Espresso syncs all view operations with the UI thread as well as AsyncTasks, but it can't
@@ -43,7 +49,6 @@ import org.junit.runner.RunWith;
  * for the Idling Resource.
  */
 
-
 @RunWith(AndroidJUnit4.class)
 public class IdlingResourceMenuActivityTest {
 
@@ -56,28 +61,21 @@ public class IdlingResourceMenuActivityTest {
      * complete. This rule allows you to directly access the activity during the test.
      */
     @Rule
-    public ActivityTestRule<MenuActivity> mActivityTestRule =
-            new ActivityTestRule<>(MenuActivity.class);
+    public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class, false, false);
 
-    private IdlingResource mIdlingResource;
-
-
-    // TODO (6) Registers any resource that needs to be synchronized with Espresso before
-    // the test is run.
     @Before
     public void registerIdlingResource() {
-
+        IdlingRegistry.getInstance().register(MenuActivity.getIdlingResource());
+        mActivityTestRule.launchActivity(new Intent());
     }
 
-    // TODO (7) Test that the gridView with Tea objects appears and we can click a gridView item
     @Test
     public void idlingResourceTest() {
-
+        onData(anything()).inAdapterView(withId(R.id.tea_grid_view)).atPosition(0).perform(click());
     }
 
-    // TODO (8) Unregister resources when not needed to avoid malfunction
     @After
     public void unregisterIdlingResource() {
-
+        IdlingRegistry.getInstance().unregister(MenuActivity.getIdlingResource());
     }
 }

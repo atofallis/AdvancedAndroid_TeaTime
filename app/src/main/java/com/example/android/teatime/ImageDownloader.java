@@ -68,7 +68,6 @@ class ImageDownloader {
             idlingResource.setIdleState(false);
         }
 
-
         // Display a toast to let the user know the images are downloading
         String text = context.getString(R.string.loading_msg);
         int duration = Toast.LENGTH_LONG;
